@@ -1,0 +1,61 @@
+// ~/.config/waybar/config.jsonc
+{
+  "layer": "top",
+  "position": "bottom", // Moves the bar to the bottom
+  "height": 28,
+  "spacing": 4,
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-right": [
+    "tray",
+    "wireplumber",
+    "battery",
+    "clock"
+  ],
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}"
+  },
+  // The tray module will automatically catch nm-applet and blueman-applet
+  "tray": {
+    "icon-size": 14,
+    "spacing": 10
+  },
+  "wireplumber": {
+    "format": "vol: {volume}%",
+    "format-muted": "vol: mute"
+  },
+  "memory": {
+    "interval": 30,
+    "format": "   {used:0.1f}GB/{total:0.1f}GB ({percentage}%)",
+    "tooltip-format": "RAM in use: {used}GB / {total}GB \nAvailable: {avail}GB"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "bat: {capacity}%",
+    "format-charging": "bat: +{capacity}%"
+  },
+  "clock": {
+    "format": "{:%a %b %d  %I:%M %p}",
+    // Adds a clean, interactive calendar popup when clicked
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffffff'><b>{}</b></span>",
+        "days": "<span color='#888888'>{}</span>",
+        "weeks": "<span color='#444444'>W{}</span>",
+        "weekdays": "<span color='#ffffff'><b>{}</b></span>",
+        "today": "<span color='#ff5555'><b><u>{}</u></b></span>"
+      }
+    }
+  }
+}

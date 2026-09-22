@@ -1,0 +1,52 @@
+/* ~/.config/waybar/style.css */
+
+window#waybar {
+    background-color: #141414;
+    color: #ffffff;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+}
+
+#workspaces button {
+    padding: 0 12px;
+    background: transparent;
+    color: #555555;
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces button.focused {
+    color: #ffffff;
+}
+
+#workspaces button.visible {
+    color: #888888;
+}
+
+#workspaces button.urgent {
+    color: #ff5555;
+}
+
+/* Base style for right side modules */
+#clock,
+#battery,
+#wireplumber,
+#memory
+#tray {
+    padding: 0 12px;
+    color: #ffffff;
+}
+
+/* Add custom separators between items */
+#battery,
+#wireplumber,
+#memory
+#clock {
+    border-left: 1px solid #444444;
+}
+
+/* Custom background/padding for the applet tray to keep it clean */
+#tray {
+    padding-right: 14px;
+}
+

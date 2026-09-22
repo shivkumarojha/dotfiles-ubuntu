@@ -1,0 +1,310 @@
+set $mod Mod4
+font pango:monospace 8
+
+
+
+### APPS
+#
+# set $term ghostty 
+#
+# ### TERMINAL
+#
+# bindsym $mod+Return exec $term
+
+set $menu rofi--show drun
+
+### TERMINAL
+# This tells Sway to execute the desktop-agnostic wrapper directly
+# If using foot:
+# bindsym $mod+Return exec gnome-terminal 
+bindsym $mod+Return exec env LIBGL_ALWAYS_SOFTWARE=1 ghostty
+
+# bindsym $mod+Return exec ghostty 
+
+# If using alacritty:
+# bindsym $mod+Return exec alacritty
+
+
+### STARTUP
+
+# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+exec dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec --no-startup-id /usr/lib/xdg-desktop-portal -r
+exec nm-applet
+exec blueman-applet
+exec ibus-daemon -drx
+exec mako
+exec_always swaybg -i ~/Pictures/lady.jpg -m fill
+bindsym $mod+z exec pkill -x waybar || waybar
+
+# ~/.config/sway/config
+
+### INPUT
+
+input "type:touchpad" {
+    tap enabled
+    dwt disabled
+    natural_scroll enabled
+}
+
+input "type:keyboard" {
+    xkb_options caps:swapescape
+    xkb_layout shiv
+}
+
+
+#
+# MONITOR MODES
+#
+
+# External monitor only
+bindsym $mod+p output HDMI-A-1 mode 1366x768@59.790Hz position 0 0 scale 1
+
+
+
+# Laptop screen only
+# bindsym $mod+q \
+# output eDP-1 enable, \
+# output eDP-1 mode 1920x1080@60.010Hz position 0 0 scale 1, \
+# output HDMI-A-1 disable
+#
+# Dual monitor
+# HDMI left, laptop right
+# bindsym $mod+y \
+# output eDP-1 enable, \
+# output eDP-1 mode 1920x1080@60.010Hz position 0 0 scale 1, \
+# output HDMI-A-1 enable, \
+# output HDMI-A-1 mode 1280x1024@60.020Hz position 1920 0 scale 1
+
+# display on the left
+
+# bindsym $mod+y output HDMI-A-1 enable mode 1280x1024@60.020Hz position 0 0 scale 1, output eDP-1 enable mode 1920x1080@60.010Hz position 1280 0 scale 1
+
+### GAPS
+
+gaps inner 0
+gaps outer 0
+
+### BORDER
+
+default_border none
+default_floating_border none
+hide_edge_borders smart
+
+
+# hide_cursor
+seat * hide_cursor 3000
+### LAUNCHER
+# bindsym $mod+d exec $menu
+
+bindsym $mod+d exec --no-startup-id rofi -modes "drun#filebrowser#ssh" -show drun
+### KILL
+
+bindsym $mod+Shift+q kill
+
+# Toggle between workspace 1 and 2
+bindsym $mod+space exec swaymsg workspace $( [ "$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused).name')" = "1" ] && echo 2 || echo 1 )
+
+# Toggle between workspace 1 and 3
+bindsym $mod+Shift+space exec swaymsg workspace $( [ "$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused).name')" = "1" ] && echo 3 || echo 1 )
+
+### FOCUS
+
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+### MOVE
+
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+### LAYOUTS
+
+workspace_layout tabbed
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+### FULLSCREEN
+
+bindsym $mod+f fullscreen toggle
+
+### RESIZE MODE
+
+mode "resize" {
+    bindsym j resize shrink width 10px
+    bindsym k resize grow height 10px
+    bindsym l resize shrink height 10px
+    bindsym semicolon resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode resize
+
+### WORKSPACES
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindcode $mod+10 workspace 1
+bindcode $mod+11 workspace 2
+bindcode $mod+12 workspace 3
+bindcode $mod+13 workspace 4
+bindcode $mod+14 workspace 5
+bindcode $mod+15 workspace 6
+bindcode $mod+16 workspace 7
+bindcode $mod+17 workspace 8
+bindcode $mod+18 workspace 9
+bindcode $mod+19 workspace 10
+
+# bindcode $mod+1 workspace $ws1
+# bindcode $mod+2 workspace $ws2
+# bindcode $mod+3 workspace $ws3
+# bindcode $mod+4 workspace $ws4
+# bindcode $mod+5 workspace $ws5
+# bindcode $mod+6 workspace $ws6
+# bindcode $mod+7 workspace $ws7
+# bindcode $mod+8 workspace $ws8
+# bindcode $mod+9 workspace $ws9
+# bindcode $mod+0 workspace $ws10
+#
+## CUSTOM WORKSPACES
+
+bindsym $mod+c workspace 6
+bindsym $mod+g workspace 5
+bindsym $mod+x workspace 8
+bindsym $mod+b workspace 7
+
+### MOVE CONTAINERS
+bindcode $mod+Shift+10 move container to workspace 1
+bindcode $mod+Shift+11 move container to workspace 2
+bindcode $mod+Shift+12 move container to workspace 3
+bindcode $mod+Shift+13 move container to workspace 4
+bindcode $mod+Shift+14 move container to workspace 5
+bindcode $mod+Shift+15 move container to workspace 6
+bindcode $mod+Shift+16 move container to workspace 7
+bindcode $mod+Shift+17 move container to workspace 8
+bindcode $mod+Shift+18 move container to workspace 9
+bindcode $mod+Shift+19 move container to workspace 10
+
+### WORKSPACE SWITCHING
+
+bindsym $mod+comma focus output left
+bindsym $mod+period focus output right
+
+bindsym $mod+Shift+comma move workspace to output left
+bindsym $mod+Shift+period move workspace to output right
+
+### AUDIO
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+bindcode Control+10 exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindcode Control+11 exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindcode Control+19 exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+### BRIGHTNESS
+
+bindsym $mod+F5 exec brightnessctl set 10%-
+bindsym $mod+F6 exec brightnessctl set +10%
+
+# Brightness controls
+# bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+# bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+### LOCK
+
+bindsym $mod+Shift+x exec swaylock -f -c 000000
+
+### SUSPEND
+
+bindsym $mod+Shift+Escape exec systemctl suspend
+
+### NOTIFICATIONS
+
+bindsym $mod+Shift+n exec makoctl restore
+bindsym $mod+Shift+m exec makoctl dismiss --all
+
+### TRANSLATE
+
+bindsym $mod+t exec rofi_trans
+
+### RELOAD
+
+bindsym $mod+Shift+c reload
+
+### EXIT
+
+bindsym $mod+Shift+e exec swaynag \
+-t warning \
+-m 'Exit sway?' \
+-b 'Yes' 'swaymsg exit'
+
+### BAR
+exec mako
+bindsym $mod+Shift+w exec nm-connection-editor
+# bindsym $mod+Shift+b exec blueman-manager
+
+bindsym $mod+Shift+b exec --no-startup-id i3-sensible-terminal -e ~/bin/read
+
+# Window titlebar colors
+
+default_border normal 1
+default_floating_border normal 1
+
+titlebar_border_thickness 1
+titlebar_padding 4 2
+
+hide_edge_borders smart
+client.focused          #444444 #2e2e2e #e6e6e6 #2e9ef4 #2e2e2e
+client.focused_inactive #333333 #1e1e1e #cccccc #2e2e2e #1e1e1e
+client.unfocused        #222222 #111111 #aaaaaa #111111 #111111
+client.urgent           #550000 #330000 #ffffff #aa0000 #330000
+client.placeholder      #000000 #0c0c0c #888888 #000000 #0c0c0c
+
+# disable internal keyboard- laptop one
+input "1:1:AT_Translated_Set_2_keyboard" {
+    events enabled
+}
+
+# SCREENSHOTS
+# bindsym Mod4+Shift+s exec grim -g "$(slurp)" - | wl-copy
+bindsym Mod4+Shift+s exec grim -g "$(slurp)" -t png - | wl-copy --type image/png
+# bindsym Print exec grimshot save screen
+# bindsym $mod+Shift+Print exec grimshot copy area
+# bindsym $mod+Print exec grimshot save active
+
+
+### SCREENSHOTS
+
+# bindsym Print exec grim ~/Pictures/$(date +%s).png
+# bindsym $mod+Print exec grim -g "$(slurp)" ~/Pictures/$(date +%s).png
+#
+# bindsym Ctrl+Print exec grim - | wl-copy
+
+# Force the reference image tool to float and stay out of tiling layouts
+for_window [app_id="imv"] floating enable, resize set 600 px 400 px, move position cursor
