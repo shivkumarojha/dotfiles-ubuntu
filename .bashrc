@@ -183,6 +183,16 @@ alias occ="opencode --continue"
 alias bashrc="source ~/.bashrc"
 
 
+alias ar1="arithmetic -r 100"
+alias ar2="arithmetic -r 200"
+alias ar3="arithmetic -r 300"
+alias ar4="arithmetic -r 400"
+alias ar5="arithmetic -r 500"
+alias ar6="arithmetic -r 600"
+alias ar7="arithmetic -r 700"
+alias ar8="arithmetic -r 800"
+alias ar9="arithmetic -r 900"
+alias ar0="arithmetic -r 1000"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -191,3 +201,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+ export PATH="/home/shiv/.local/bin:$PATH"

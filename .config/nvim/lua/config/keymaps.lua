@@ -87,3 +87,10 @@ end, { desc = "Launch Image Viewer Window" })
 
 -- Run the request under the cursor using <leader>r
 vim.keymap.set("n", "<leader>r", "<cmd>Rest run<CR>", { desc = "Run HTTP request" })
+
+
+-- Strip all console.logs from the current buffer
+vim.keymap.set("n", "<leader>cx", ":%g/console.log/d<CR>", { 
+  desc = "Clear all console.logs", 
+  silent = true 
+})
