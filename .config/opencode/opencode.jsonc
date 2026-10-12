@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "instructions": ["/home/shiv/.config/opencode/rules.md"],
   "mcp": {
     "linear": {
       "type": "remote",
